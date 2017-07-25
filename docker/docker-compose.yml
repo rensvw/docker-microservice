@@ -1,0 +1,55 @@
+version: "3"
+
+networks:
+  nicenetwork:
+    driver: overlay
+services:
+  base0:
+    image: base
+    environment:
+      TAG: base0
+      PORT: 39000
+      HOST: base0
+      BASES: base0:39000,base1:39001
+      SILENT: "false"
+    networks:
+      nicenetwork:
+        aliases: 
+          - base0
+    deploy:
+      replicas: 1
+  base1:
+    image: base
+    environment:
+      TAG: base1
+      PORT: 39001
+      HOST: base1
+      BASES: base0:39000,base1:39001
+      SILENT: "false"
+    networks:
+      nicenetwork:
+        aliases: 
+          - base1
+    deploy:
+      replicas: 1
+  api:
+    image: api
+    environment:
+      HOST: "eth0"
+      BASES: base0:39000,base1:39001
+      SILENT: "true"
+    networks:
+      - nicenetwork
+    deploy:
+      replicas: 1
+  math:
+    image: math
+    environment:
+      HOST: "eth0"
+      BASES: base0:39000,base1:39001
+      SILENT: "true"
+    networks:
+      - nicenetwork
+    deploy:
+      replicas: 1
+  

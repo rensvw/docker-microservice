@@ -1,0 +1,36 @@
+{
+  "name": "docker-microservices",
+  "version": "1.0.0",
+  "description": "Microservices using docker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rensvw/docker-microservice.git"
+  },
+  "keywords": [
+    "Docker",
+    "microservices"
+  ],
+  "author": "Rens van Woudenberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rensvw/docker-microservice/issues"
+  },
+  "homepage": "https://github.com/rensvw/docker-microservice#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "seneca": "^3.4.1",
+    "seneca-balance-client": "^0.6.1",
+    "seneca-demo-logger": "^0.2.0",
+    "seneca-mesh": "^0.10.0",
+    "seneca-web": "^2.1.0",
+    "seneca-web-adapter-express": "^1.0.2"
+  },
+  "devDependencies": {
+    "pm2": "^2.6.1"
+  }
+}

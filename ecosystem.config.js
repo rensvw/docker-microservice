@@ -9,10 +9,10 @@ module.exports = {
   apps : [
     {
     name        : "base0",
-    script      : "./base.js",
+    script      : "./base/base.js",
     instances : instances,
     exec_mode : "cluster",
-    watch       : "./base.js",
+    watch       : "./base/base.js",
     env: {
       "NODE_ENV": "development",
       "PORT"  : 39000
@@ -20,10 +20,10 @@ module.exports = {
   },
   {
     name        : "base1",
-    script      : "./base.js",
+    script      : "./base/base.js",
     instances : instances,
     exec_mode : "cluster",
-    watch       : "./base.js",
+    watch       : "./base/base.js",
     env: {
       "NODE_ENV": "development",
       "PORT"  : 39001
@@ -31,17 +31,17 @@ module.exports = {
   },
   {
     name        : "webserver",
-    script      : "./app.js",
+    script      : "./api/app.js",
     instances : instances,
     exec_mode : "cluster",
-    watch       : "./app.js",
+    watch       : "./api/app.js",
   },
   {
     name        : "math",
-    script      : "./math-service.js",
+    script      : "./math/math-service.js",
     instances : instances,
     exec_mode : "cluster",
-    watch       : "./math-service.js",
+    watch       : "./math/math-service.js",
   }]
  
 };
