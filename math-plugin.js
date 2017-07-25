@@ -8,10 +8,4 @@ module.exports = function math(options) {
     respond(null, { answer: msg.left * msg.right })
   })
 
-  this.wrap('role:math', function (msg, respond) {
-    msg.left  = Number(msg.left).valueOf()
-    msg.right = Number(msg.right).valueOf()
-    this.prior(msg, respond)
-  })
-
 }
