@@ -8,14 +8,14 @@ module.exports = {
    */
   apps : [
     {
-    name        : "Webserver",
+    name        : "webserver",
     script      : "./app.js",
     instances : instances,
     exec_mode : "cluster",
     watch       : "./app.js",
   },
   {
-    name        : "Math",
+    name        : "math",
     script      : "./math-service.js",
     instances : instances,
     exec_mode : "cluster",
