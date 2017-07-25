@@ -1,10 +1,16 @@
-var seneca = require('seneca')()
+// Dit is een plugin
+function math(options) { 
 
-seneca.add('role:math,cmd:sum', (msg, reply) => {
-  reply(null, {answer: (msg.left + msg.right)})
-})
+  this.add('role:math,cmd:sum', function (msg, respond) {
+    respond(null, { answer: msg.left + msg.right })
+  })
 
-seneca.act({role: 'math', cmd: 'sum', left: 1, right: 2}, function (err, result) {
-  if (err) return console.error(err)
-  console.log(result)
-})
+  this.add('role:math,cmd:product', function (msg, respond) {
+    respond(null, { answer: msg.left * msg.right })
+  })
+
+}
+
+require('seneca')()
+  .use(math) // Hier initialiseren we de plugin
+  .act('role:math,cmd:sum,left:1,right:2', console.log)
