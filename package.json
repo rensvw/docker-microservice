@@ -26,5 +26,8 @@
     "seneca": "^3.4.1",
     "seneca-web": "^2.1.0",
     "seneca-web-adapter-express": "^1.0.2"
+  },
+  "devDependencies": {
+    "pm2": "^2.6.1"
   }
 }
