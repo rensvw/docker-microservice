@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/rensvw/docker-microservice#readme",
   "dependencies": {
-    "seneca": "^3.4.1"
+    "seneca": "3.3.0"
   }
 }
