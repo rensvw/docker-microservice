@@ -3,12 +3,12 @@ var BASES = (process.env.BASES || process.argv[3] || "127.0.0.1:39000,127.0.0.1:
 var SILENT = process.env.SILENT || process.argv[4] || "true"
 
 require('seneca')()
-  .use(require('./math-plugin.js'))
+  .use(require('./math-plugin.js')) // Initiate the math plugin
   .use("mesh",{
     listen: [
       { 
       pins: [
-      "role:math"
+      "role:math" // Encapsulate the messages that can be requested
       ]
     }],
     bases: BASES,

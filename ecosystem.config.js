@@ -1,4 +1,4 @@
-const instances = 1;
+var instances = 1;
 
 module.exports = {
 
@@ -12,36 +12,100 @@ module.exports = {
     script      : "./base/base.js",
     instances : instances,
     exec_mode : "cluster",
-    watch       : "./base/base.js",
+    watch       : "./base",
     env: {
       "NODE_ENV": "development",
       "PORT"  : 39000
     },
+    env_production : {
+       "NODE_ENV": "production"
+    }
   },
   {
     name        : "base1",
     script      : "./base/base.js",
+    watch       : "./base",
     instances : instances,
     exec_mode : "cluster",
-    watch       : "./base/base.js",
     env: {
       "NODE_ENV": "development",
       "PORT"  : 39001
     },
-  },
-  {
-    name        : "webserver",
-    script      : "./api/app.js",
+    env_production : {
+       "NODE_ENV": "production"
+    }
+    },
+    // First application
+    {
+    name        : "api",
+    script      : "./api/api.js",
+    watch       : "./api",
     instances : instances,
     exec_mode : "cluster",
-    watch       : "./api/app.js",
-  },
+    env: {
+      "NODE_ENV": "development",
+      
+    },
+    env_production : {
+       "NODE_ENV": "production"
+    }
+
+    },
+   {
+    name        : "proxy-api",
+    script      : "./proxy-api/proxy-api.js",
+    watch       : "./proxy-api",
+    instances : instances,
+    exec_mode : "cluster",
+    env: {
+      "NODE_ENV": "development",
+      
+    },
+    env_production : {
+       "NODE_ENV": "production"
+    }
+
+    },
   {
     name        : "math",
     script      : "./math/math-service.js",
+    watch       : "./math",
     instances : instances,
     exec_mode : "cluster",
-    watch       : "./math/math-service.js",
-  }]
- 
+    env: {
+      "NODE_ENV": "development",
+      
+    },
+    env_production : {
+       "NODE_ENV": "production"
+    }
+
+    }
+  ],
+
+  /**
+   * Deployment section
+   * http://pm2.keymetrics.io/docs/usage/deployment/
+   */
+  deploy : {
+    production : {
+      user : "node",
+      host : "212.83.163.1",
+      ref  : "origin/master",
+      repo : "git@github.com:repo.git",
+      path : "/var/www/production",
+      "post-deploy" : "npm install && pm2 reload ecosystem.config.js --env production"
+    },
+    dev : {
+      user : "node",
+      host : "212.83.163.1",
+      ref  : "origin/master",
+      repo : "git@github.com:repo.git",
+      path : "/var/www/development",
+      "post-deploy" : "npm install && pm2 reload ecosystem.config.js --env dev",
+      env  : {
+        NODE_ENV: "dev"
+      }
+    }
+  }
 };

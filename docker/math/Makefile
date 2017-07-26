@@ -2,8 +2,8 @@ container :
 	cp ../../math/math-service.js .
 	cp ../../math/math-plugin.js .
 	
-	sudo docker build -t math .
-	sudo docker images | grep math
+	docker build -t math .
+	docker images | grep math
 
 clean :
 	rm -f *~

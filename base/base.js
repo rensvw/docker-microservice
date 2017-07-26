@@ -12,12 +12,12 @@ require("seneca")({
   debug: {short_logs:true}
 })
   .use("mesh",{
-    isbase: true,
-    port: PORT,
+    isbase: true, // Set this mesh node as a base node
+    port: PORT, 
     host: HOST,
     bases: BASES,
     pin:"role:mesh",
-    sneeze: {
+    sneeze: { // sneeze is a logging setting
       silent: JSON.parse(SILENT),
       swim: {interval: 1111}
     }
