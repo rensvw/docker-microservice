@@ -49,5 +49,5 @@ server.route({
 });
 
 server.start(function(){
-  console.log("front",server.info.uri)
+  console.log("Proxy api is running on:",server.info.uri)
 });

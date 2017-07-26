@@ -1,8 +1,8 @@
 container :
 	cp ../../proxy-api/proxy-api.js .
 
-	docker build -t front .
-	docker images | grep front
+	docker build -t proxy .
+	docker images | grep proxy
 
 clean :
 	rm -f *~

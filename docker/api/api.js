@@ -8,7 +8,7 @@ const Seneca = require("seneca");
 const Hapi = require("hapi");
 const Rif = require("rif");
 const Good = require("good");
-const tag = "api";
+var tag = "api";
 
 // Creates a new server instance
 const server = new Hapi.Server();
@@ -45,7 +45,9 @@ server.register([
         ]
       }
     }
-  },
+  }]);
+
+  server.register([
   { 
     // Plugin for senecajs integration in Hapi webserver
     register: Chairo,
@@ -60,7 +62,8 @@ server.register([
             }
         })
     }
-},
+}])
+  server.register([
 {
   // Set up the proxies
   register: require("wo"),
@@ -76,15 +79,9 @@ server.register([
       swim: {interval: 1111}
     }
   }
-}], function (err) {
-  if (err) {
-    server.log("error", "failed to install plugins");
-    throw err;
-  }
+}]);
 
-  server.log("info", "Plugins registered");
-
-
+server.log("info", "Plugins registered");
 
 // Handling logic sum route
 const sum = (request, reply) => {
@@ -118,15 +115,16 @@ const product = (request, reply) => {
 
 
   // Routes
-  server.route([{
+server.route([{
       method: "GET",
       path: "/api/calculate/sum",
       config: {
         description: "Calculates the outcome of the sum of 2 numbers",
         handler: sum
       }
-    },
-    {
+    }])
+
+server.route([{
       method: "GET",
       path: "/api/calculate/product",
       config: {
@@ -136,7 +134,7 @@ const product = (request, reply) => {
     }
   ]);
 
-  server.log("info", "Routes registered");
+server.log("info", "Routes registered");
 
 // Set up mesh network
 server.seneca
@@ -160,7 +158,5 @@ server.seneca
     }
     server.log("info", "Server running at: " + server.info.uri)
   });
-});
-
 
 
