@@ -1,14 +1,25 @@
 {
-  "name": "micro-service-api",
+  "name": "docker-microservices",
   "version": "1.0.0",
-  "description": "The api microservice",
-  "main": "server.js",
+  "description": "Microservices using docker",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rensvw/docker-microservice.git"
+  },
+  "keywords": [
+    "Docker",
+    "microservices"
+  ],
   "author": "Rens van Woudenberg",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rensvw/docker-microservice/issues"
+  },
+  "homepage": "https://github.com/rensvw/docker-microservice#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
     "chairo": "^3.0.0",
