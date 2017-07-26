@@ -1,4 +1,4 @@
-const instances = 4;
+const instances = 1;
 
 module.exports = {
 
