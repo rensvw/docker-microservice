@@ -14,3 +14,7 @@ pm2 start webserver
 pm2 start math
 pm2 kill
 pm2 list
+
+cd docker
+docker stack deploy -c docker-compose.yml name
+docker stack rm name

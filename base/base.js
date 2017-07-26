@@ -7,21 +7,27 @@ var BASES = (process.env.BASES || process.argv[5] || "127.0.0.1:39000,127.0.0.1:
 var SILENT = process.env.SILENT || process.argv[6] || "true"
 
 require("seneca")({
-  tag: TAG,
-  internal: {logger: require("seneca-demo-logger")},
-  debug: {short_logs:true}
-})
-  .use("mesh",{
-    isbase: true, // Set this mesh node as a base node
-    port: PORT, 
-    host: HOST,
-    bases: BASES,
-    pin:"role:mesh",
-    sneeze: { // sneeze is a logging setting
-      silent: JSON.parse(SILENT),
-      swim: {interval: 1111}
+    tag: TAG,
+    internal: {
+      logger: require("seneca-demo-logger")
+    },
+    debug: {
+      short_logs: true
     }
   })
-  .ready(function(){
+  .use("mesh", {
+    isbase: true, // Set this mesh node as a base node
+    port: PORT,
+    host: HOST,
+    bases: BASES,
+    pin: "role:mesh",
+    sneeze: { // sneeze is a logging setting
+      silent: JSON.parse(SILENT),
+      swim: {
+        interval: 1111
+      }
+    }
+  })
+  .ready(function () {
     console.log(this.id)
   })

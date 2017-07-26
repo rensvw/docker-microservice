@@ -4,17 +4,18 @@ var SILENT = process.env.SILENT || process.argv[4] || "true"
 
 require('seneca')()
   .use(require('./math-plugin.js')) // Initiate the math plugin
-  .use("mesh",{
-    listen: [
-      { 
+  .use("mesh", {
+    listen: [{
       pins: [
-      "role:math" // Encapsulate the messages that can be requested
+        "role:math" // Encapsulate the messages that can be requested
       ]
     }],
     bases: BASES,
     host: HOST,
     sneeze: {
       silent: JSON.parse(SILENT),
-      swim: {interval: 1111}
+      swim: {
+        interval: 1111
+      }
     }
   });

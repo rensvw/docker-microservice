@@ -23,14 +23,17 @@ server.register({
     sneeze: {
       host: host,
       silent: JSON.parse(SILENT),
-        swim: {interval: 1111}
+      swim: {
+        interval: 1111
       }
+    }
   }
 });
 
 // Get sum route from api
 server.route({
-  method: "GET", path: "/api/calculate/sum",
+  method: "GET",
+  path: "/api/calculate/sum",
   handler: {
     wo: {
       passThrough: true
@@ -40,7 +43,8 @@ server.route({
 
 // Get product route from api
 server.route({
-  method: "GET", path: "/api/calculate/product",
+  method: "GET",
+  path: "/api/calculate/product",
   handler: {
     wo: {
       passThrough: true
@@ -48,6 +52,6 @@ server.route({
   }
 });
 
-server.start(function(){
-  console.log("Proxy api is running on:",server.info.uri)
+server.start(function () {
+  console.log("Proxy api is running on:", server.info.uri)
 });
