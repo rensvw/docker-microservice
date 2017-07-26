@@ -1,6 +1,5 @@
 container :
 	cp ../../api/api.js .
-	cp ../../api/app.js .
 	
 	docker build -t api .
 	docker images | grep api

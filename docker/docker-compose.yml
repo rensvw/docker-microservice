@@ -52,4 +52,16 @@ services:
       - nicenetwork
     deploy:
       replicas: 1
+  proxy-api:
+    image: proxy-api
+    environment:
+      HOST: "eth2"
+      BASES: base0:39000,base1:39001
+      SILENT: "true"
+    ports:
+      - "8000:8000"
+    networks:
+      - nicenetwork
+    deploy:
+      replicas: 1
   
