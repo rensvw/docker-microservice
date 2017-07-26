@@ -1,69 +1,40 @@
+"use strict"
+
 var PORT = process.env.PORT || process.argv[2] || 3000;
 var HOST = process.env.HOST || process.argv[2] || "127.0.0.1";
 var BASES = (process.env.BASES || process.argv[3] || "127.0.0.1:39000,127.0.0.1:39001").split(",");
 var SILENT = process.env.SILENT || process.argv[4] || "true";
 
-const Chairo = require("chairo");
-const Seneca = require("seneca");
-const Hapi = require("hapi");
-const Rif = require("rif");
-const Good = require("good");
-var tag = "api";
+const Hapi   = require('hapi')
+const Chairo = require('chairo')
+const Seneca = require('seneca')
+const Rif    = require('rif')
 
-// Creates a new server instance
-const server = new Hapi.Server();
+const tag = 'api'
+
+var server = new Hapi.Server()
 var rif = Rif()
 
 var host = rif(HOST) || HOST
 
-// Add server’s connection information
 server.connection({
-  port: PORT,
-  host: host
-});
+    port: PORT,
+    host: host
+})
 
-// Register plugins to server instance
+server.register({
+  register: Chairo,
+  options:{
+    seneca: Seneca({
+      tag: tag,
+      internal: {logger: require('seneca-demo-logger')},
+      debug: {short_logs:true}
+    })
+    //.use('zipkin-tracer', {sampling:1})
+  }
+})
+
 server.register([
-  {
-    // Plugin for webserver logs
-    register: Good,
-    options: {
-      ops: {
-        interval: 10000
-      },
-      reporters: {
-        console: [
-          {
-            module: "good-squeeze",
-            name: "Squeeze",
-            args: [ { log: "*", response: "*", request: "*" } ]
-          },
-          {
-            module: "good-console"
-          },
-          "stdout"
-        ]
-      }
-    }
-  }]);
-
-  server.register([
-  { 
-    // Plugin for senecajs integration in Hapi webserver
-    register: Chairo,
-    options: {
-        seneca: Seneca({
-            tag: tag,
-            internal: {
-                logger: require("seneca-demo-logger")
-            },
-            debug: {
-                short_logs: true
-            }
-        })
-    }
-}])
-  server.register([
 {
   // Set up the proxies
   register: require("wo"),
@@ -81,7 +52,6 @@ server.register([
   }
 }]);
 
-server.log("info", "Plugins registered");
 
 // Handling logic sum route
 const sum = (request, reply) => {
@@ -134,29 +104,20 @@ server.route([{
     }
   ]);
 
-server.log("info", "Routes registered");
-
-// Set up mesh network
 server.seneca
-  .use("mesh", {
-    host: host,
-    bases: BASES,
-    sneeze: {
-      silent: JSON.parse(SILENT),
-      swim: {
-        interval: 1111
-      }
-    }
-  });
-
-  // start the server after plugin registration
-  server.start(function (err) {
-    if (err) {
-      server.log("error", "failed to start server")
-      server.log("error", err);
-      throw err
-    }
-    server.log("info", "Server running at: " + server.info.uri)
-  });
+  .add('role:api,cmd:ping', function(msg,done){
+    done( null, {pong:true,api:true,time:Date.now()})
+  })
+    .use('mesh',{
+	host: host,
+	bases: BASES,
+	sneeze: {
+          silent: JSON.parse(SILENT),
+          swim: {interval: 1111}
+        }
+    })
 
 
+server.start(function(){
+  console.log(tag,server.info.host,server.info.port)
+})
