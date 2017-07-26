@@ -8,7 +8,9 @@ require('seneca')()
   .client({ type: 'tcp', pin: 'role:math' })
 
   // executed remotely
-  .act('role:math,cmd:sum,left:1,right:2',console.log)
+  .act('role:math,cmd:sum,left:1.5,right:2.3',console.log)
+
+  .act('role:math,cmd:sum,integer:true,left:1.5,right:2.3',console.log)  
 
   // executed locally
   .act('say:hello',console.log)
