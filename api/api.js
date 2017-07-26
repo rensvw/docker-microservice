@@ -98,7 +98,7 @@ server.route([{
   method: "GET",
   path: "/api/calculate/sum",
   config: {
-    description: "Calculates the outcome of the sum of 2 numbers",
+    description: "Calculates the sum of 2 numbers",
     handler: sum
   }
 }])
@@ -107,7 +107,7 @@ server.route([{
   method: "GET",
   path: "/api/calculate/product",
   config: {
-    description: "Calculates the outcome of the product of 2 numbers",
+    description: "Calculates the product of 2 numbers",
     handler: product
   }
 }]);
